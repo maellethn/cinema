@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block title %}Salles{% endblock %}
+{% block body %}
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Les salles</h1>
+  </div>
+
+
+  	{% if ajout==1 %}
+	<div class="alert alert-success" role="alert">
+  		La salle a bien été ajouter
+	</div>
+	{% endif %}
+	<form method="post" class="needs-validation" novalidate>
+		<div class="form-group">
+			<label>Nom de la salle</label>
+			<input class="form-control" type="text" name="nom" required>
+		</div>
+		<div class="form-group">
+			<label>Adresse de la salle </label>
+			<input class="form-control" type="text" name="adresse" required>
+		</div>
+		<button type=submit value="ajouter" class="btn btn-dark">Ajouter</button>	
+	</form>
+
+{% endblock %}
+{% block javascripts %}
+<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
+{% endblock %}

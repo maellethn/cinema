@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block title %}Sceance{% endblock %}
+{% block body %}
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Sceances</h1>
+  </div>
+
+  <!-- Content Row -->
+  <div class="row">
+	<table class="table table-hover">
+  			<thead class="thead-dark">
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">Date</th>
+		      <th scope="col">Film</th>
+		      <th scope="col">salle</th>
+		  </thead>
+		  <tbody>
+		  	{% for sceance in sceances %}
+		    <tr>
+		      <th scope="row">{{loop.index}}</th>
+		      <td>{{sceance.date|date("Y-m-d")}}</td>
+		      <td>{{sceance.film.titre}}</td>
+		      <td>{{sceance.salle.nom}}</td>
+		    {% endfor %}
+		  </tbody>
+		</table>
+	</div>
+{% endblock %}

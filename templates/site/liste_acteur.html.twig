@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title %}Acteur{% endblock %}
+{% block body %}
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Acteurs</h1>
+  </div>
+
+  <!-- Content Row -->
+  <div class="row">
+	<table class="table table-hover">
+  			<thead class="thead-dark">
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">Nom</th>
+		      <th scope="col">Prenom</th>
+
+		  </thead>
+		  <tbody>
+		  	{% for acteur in acteurs %}
+		    <tr>
+		      <th scope="row">{{loop.index}}</th>
+		      <td>{{acteur.nom}}</td>
+		      <td>{{acteur.prenom}}</td>
+		    {% endfor %}
+		  </tbody>
+		</table>
+	</div>
+{% endblock %}

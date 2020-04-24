@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+{% block title %}Film{% endblock %}
+{% block body %}
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Film</h1>
+  </div>
+
+
+  	{% if ajout==1 %}
+	<div class="alert alert-success" role="alert">
+  		Le film a bien été ajouter
+	</div>
+	{% endif %}
+	<form method="post" class="needs-validation" novalidate>
+		<div class="form-group">
+			<label>Titre du film</label>
+			<input class="form-control" type="text" name="titre" required>
+		</div>
+		<div class="form-group">
+			<label>Affiche</label>
+			<input class="form-control" type="text" name="affiche" required>
+		</div>
+    <div class="form-group">
+      <label>Description</label>
+      <textarea class="form-control" type="text" name="description" required></textarea>
+    </div>
+    <div class="form-group">
+      <label>Duree</label>
+      <input class="form-control" type="text" name="duree" placeholder="1h00"required>
+    </div>
+    <div class="form-group">
+      <label>date de sortie</label>
+      <input class="form-control" type="date" name="date" required>
+    </div>
+    <div class="form-group">
+      <label>Realisateur</label>
+      <select name="realisateur_id" class="form-control" required>
+        {% for realisateur in realisateurs %}
+        <option value="{{realisateur.id}}">{{realisateur.nom}} {{realisateur.prenom}}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Etat</label>
+      <select name="etat" class="form-control" required>
+        <option value="0">Pas a l'ffiche</option>
+        <option value="1">A l'affiche</option>
+      </select>
+    </div>
+		<button type=submit value="ajouter" class="btn btn-dark">Ajouter</button>	
+	</form>
+
+{% endblock %}
+{% block javascripts %}
+<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
+{% endblock %}

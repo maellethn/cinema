@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block title %}Bande d'anonce{% endblock %}
+{% block body %}
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Bande d'annonce</h1>
+  </div>
+
+  <!-- Content Row -->
+  <div class="row">
+	<table class="table table-hover">
+  			<thead class="thead-dark">
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">Lien</th>
+		      <th scope="col">Film</th>
+		  </thead>
+		  <tbody>
+		  	{% for ba in bandeAnnonces %}
+		    <tr>
+		      <th scope="row">{{loop.index}}</th>
+		      <td>{{ba.lien}}</td>
+		      <td>{{ba.film.titre}}</td>
+		    {% endfor %}
+		  </tbody>
+		</table>
+	</div>
+{% endblock %}
