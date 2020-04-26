@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+{% block title %}Film-categorie{% endblock %}
+{% block body %}
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Categories du film {{film.titre}}</h1>
+  </div>
+
+  <div class="row">
+  <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Titre</th>
+          <th scope="col">Liens vers l'image</th>
+
+      </thead>
+      <tbody>
+        {% for categorie in film.categorie %}
+        <tr>
+          <th scope="row">{{loop.index}}</th>
+          <td>{{categorie.titre}}</td>
+          <td>{{categorie.image}}</td>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+
+  	{% if ajout==1 %}
+	<div class="alert alert-success" role="alert">
+  		La categorie a bien été ajouter
+	</div>
+	{% endif %}
+	<form method="post" class="needs-validation" novalidate>
+    <div class="form-group">
+      <label>Acteur</label>
+      <select name="categorie_id" class="form-control" required>
+        {% for cat in categories %}
+        <option value="{{cat.id}}">{{cat.titre}}</option>
+        {% endfor %}
+      </select>
+    </div>
+		<button type=submit value="ajouter" class="btn btn-dark">Ajouter</button>	
+	</form>
+
+{% endblock %}
+{% block javascripts %}
+<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
+{% endblock %}

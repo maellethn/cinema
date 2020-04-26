@@ -182,6 +182,33 @@ class SiteController extends AbstractController
         ]);
     }
     /**
+     * @Route("/film/acteur/{id}", name="film_acteur", methods={"GET","POST"})
+     */
+    public function filmActeur(Request $req,ManagerRegistry $cmanager,Film $film, ActeurRepository $acteurRepo)
+    {
+    	$ajout=0;
+
+	  	if ($req->request->get('acteur_id')!=null) {
+    		$acteur_id=$req->request->get('acteur_id');
+    		$acteur=$acteurRepo->find($acteur_id);
+
+    		$acteur->addFilm($film);
+
+    		$manager=$cmanager->getManager();
+    		$manager->persist($acteur);
+    		$manager->flush();
+            $ajout=1;
+    	}
+    	 $acteurs=$acteurRepo->findAll();
+
+        return $this->render('site/film_acteur.html.twig', [
+            'ajout' => $ajout,
+            'acteurs'=>$acteurs,
+            'film'=>$film,
+
+        ]);
+    }
+    /**
      * @Route("/categorie/new", name="categorie_new", methods={"GET","POST"})
      */
     public function newCategorie(Request $req,ManagerRegistry $cmanager)
@@ -205,6 +232,35 @@ class SiteController extends AbstractController
             'ajout' => $ajout,
         ]);
     }
+    /**
+     * @Route("/film/categorie/{id}", name="film_categorie", methods={"GET","POST"})
+     */
+    public function filmCategorie(Request $req,ManagerRegistry $cmanager,Film $film, CategorieRepository $catRepo)
+    {
+    	$ajout=0;
+
+	  	if ($req->request->get('categorie_id')!=null) {
+    		$categorie_id=$req->request->get('categorie_id');
+    		$categorie=$catRepo->find($categorie_id);
+
+    		$categorie->addFilm($film);
+
+    		$manager=$cmanager->getManager();
+    		$manager->persist($categorie);
+    		$manager->flush();
+            $ajout=1;
+    	}
+    	 $categories=$catRepo->findAll();
+
+        return $this->render('site/film_categorie.html.twig', [
+            'ajout' => $ajout,
+            'categories'=>$categories,
+            'film'=>$film,
+
+        ]);
+    }
+    
+
     
      /**
      * @Route("/ba/new", name="ba_new", methods={"GET","POST"})
@@ -279,6 +335,7 @@ class SiteController extends AbstractController
     		$sceance->setDate(new \DateTime($date));
     		$sceance->setFilm($film);
     		$sceance->setSalle($salle);
+    		$salle->addFilm($film);
 
     		$manager=$cmanager->getManager();
     		$manager->persist($sceance);
