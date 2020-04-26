@@ -4,17 +4,20 @@
 
 {% block body %}
 
+<div class="container-lg">
 
-    <div class="row">
-       <div class="col-sm-12"> 
-            {% for cat in categorie %} 
-                <h1 class="titre"> {{cat.titre}} ! ✅</h1>
-                <div class="col-sm-4 jeuxvideo_home">
-                    <img src="{{cat.image}}" class="image_home"/>
-                    <a href="{{path('categorie_show', {'id': cat.id})}}"> {{cat.titre}}</a>
-                    <hr>
-                </div>
-            {% endfor %}
-       </div>
+<div class="card-deck">
+    {% for cat in categorie %} 
+  <div class="card text-center">
+    <img src="{{cat.image}}" class="card-img-top" alt="image de la categorie {{cat.titre}}">
+    <div class="card-body">
+      <h5 class="card-title">{{cat.titre}}</h5>
+      <p class="card-text"><small class="text-muted">{{cat|length}} films dans cette categorie</small></p>
+      <a href="{{path('categorie_show', {'id': cat.id})}}"type="button" class="btn btn-outline-info">Voir tous</a>
     </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+
 {% endblock %}

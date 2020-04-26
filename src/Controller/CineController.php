@@ -83,10 +83,22 @@ class CineController extends AbstractController
     public function cineShow(FilmRepository $rfilm, string $id)
     {
         $film = $rfilm->find($id);
+        //calcul de la moyenne du film 
+        $moyenne=0;
+        $sommeNote=0;
+        $nbNote=0;
+        foreach ($film->getCommentaire() as $commentaire) {
+            $sommeNote+=$commentaire->getNote();
+            $nbNote++;
+        }
+        if ($nbNote!=0) {
+            $moyenne=$sommeNote/$nbNote;
+        }
 
         return $this->render('cine/filmshow.html.twig', [
             'controller_name' => 'CineController',
-            'film' => $film
+            'film' => $film,
+                        'note'=>$moyenne
         ]);
     }
 
@@ -136,10 +148,19 @@ class CineController extends AbstractController
      */
     public function cine(FilmRepository $rfilm)
     {
-        $film = $rfilm->findAll();
+        $films = $rfilm->findAll();
+        //les films a l'affiche
+        $affiche=[];
+        foreach ($films as $film) {
+            if ($film->getEtat() == 1) {
+                $affiche[]=$film;
+            }
+        }
+        
         return $this->render('cine/index.html.twig', [
             'controller_name' => 'CineController',
-            'film' => $film
+            'Aaffiche' => $affiche,
+
         ]);
     }
 }

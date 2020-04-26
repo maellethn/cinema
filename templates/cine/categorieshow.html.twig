@@ -3,26 +3,23 @@
 {% block title %}Hello CineController!{% endblock %}
 
 {% block body %}
-    <div class="row">
-       
-             <aside class="col-sm-4 film_aside">
-                {% for cat in categorie.films %}
-                    <h1>{{cat.titre}}</h1>
-                    <img src="{{cat.affiche}}" class="image_show"/>
-                    <p>{{cat.duree}} - {{ cat.dateSortie}} </p>
-                    <p>{{cat.description }} </p> 
-                    <hr>
-                {% endfor %}
 
-               
-            </aside>
-                
-            <div class="col-sm-12"> 
-            <h1 class="titre"> {{categorie.titre}} ! ✅</h1>
-            <div class="col-sm-6 titre_show">
-                <img src="{{categorie.image}}" class="image_show"/>
-            </div>
-        </div>
-      
+<div class="container-lg">
+
+<div class="card-deck">
+    {% for film in categorie.films %} 
+  <div class="card text-center" >
+    <img src="{{film.affiche}}" class="card-img-top" alt="image du film {{film.titre}}">
+    <div class="card-body">
+      <h5 class="card-title">{{film.titre}}</h5>
+      <p>{{film.duree}} - {{ film.dateSortie|date("Y-m-d")}} </p>
+        <p>{{film.description|slice(0,150) }} </p> 
+      <p class="card-text"><small class="text-muted">Ce film est diffusé dans {{film.salle|length}} salle(s) </small></p>
+      <a href="{{path('cine_show', {'id': film.id})}}"type="button" class="btn btn-outline-info">Voir plus</a>
     </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+
 {% endblock %}
