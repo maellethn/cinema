@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CineController!{% endblock %}
+
+{% block body %}
+    <div class="row">
+       <div class="col-sm-12"> 
+            {% for act in acteur %} 
+                <h3 class="titre"> {{act.prenom}} - {{act.nom}}! ✅</h3>
+                <div class="col-sm-4 jeuxvideo_home">
+                    {# <img src="{{act.image}}" class="image_home"/> #}
+                    <a href="{{path('acteur_show', {'id': act.id})}}"> {{act.nom}}</a>
+                    <hr>
+                </div>
+            {% endfor %}
+       </div>
+    </div>
+{% endblock %}

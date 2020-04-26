@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CineController!{% endblock %}
+
+{% block body %}
+
+
+    <div class="row">
+       <div class="col-sm-12"> 
+            {% for real in realisateur %} 
+                <h1 class="titre"> {{real.prenom}} {{real.nom}} ! ✅</h1>
+                <div class="col-sm-4 jeuxvideo_home">
+                    {# <img src="{{real.image}}" class="image_home"/> #}
+                    <a href="{{path('realisateur_show', {'id': real.id})}}"> {{real.nom}}</a>
+                    <hr>
+                </div>
+            {% endfor %}
+       </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CineController!{% endblock %}
+
+{% block body %}
+
+
+    <div class="row">
+       <div class="col-sm-12"> 
+            {% for ga in film %} 
+                <h1 class="titre"> {{ga.titre}} ! ✅</h1>
+                <div class="col-sm-4 jeuxvideo_home">
+                    <img src="{{ga.affiche}}" class="image_home"/>
+                    <h6>{{ga.duree}} - {{ga.dateSortie|date("Y/m/d")}}</h6>
+                    <p>{{ga.description|slice(0, 150)}}...</p>
+                    <a href="{{path('cine_show', {'id': ga.id})}}"> {{ga.titre}}</a>
+                    <hr>
+                </div>
+            {% endfor %}
+       </div>
+    </div>
+{% endblock %}

@@ -29,7 +29,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
 class SiteController extends AbstractController
 {
     /**
-     * @Route("/", name="dashboard")
+     * @Route("/admin", name="dashboard")
      */
     public function dashboard(FilmRepository $filmRepo)
     {
@@ -92,7 +92,7 @@ class SiteController extends AbstractController
         ]);
     }
     /**
-     * @Route("/liste_realisateur", name="liste_realisateur")
+     * @Route("/admin/liste_realisateur", name="liste_realisateur")
      */
     public function listeRealisateur(RealisateurRepository $realisateurRepo)
     {
@@ -102,7 +102,7 @@ class SiteController extends AbstractController
         ]);
     }
     /**
-     * @Route("/liste_acteur", name="liste_acteur")
+     * @Route("/admin/liste_acteur", name="liste_acteur")
      */
     public function listeActeur(ActeurRepository $acteurRepo)
     {
@@ -112,7 +112,7 @@ class SiteController extends AbstractController
         ]);
     }
     /**
-     * @Route("/liste_categorie", name="liste_categorie")
+     * @Route("/admin/liste_categorie", name="liste_categorie")
      */
     public function listeCategorie(CategorieRepository $categorieRepo)
     {
@@ -122,7 +122,7 @@ class SiteController extends AbstractController
         ]);
     }
     /**
-     * @Route("/liste_ba", name="liste_ba")
+     * @Route("/admin/liste_ba", name="liste_ba")
      */
     public function listeBA(BandeAnnonceRepository $baRepo)
     {
@@ -133,7 +133,7 @@ class SiteController extends AbstractController
     }
 
     /**
-     * @Route("/liste_photo", name="liste_photo")
+     * @Route("/admin/liste_photo", name="liste_photo")
      */
     public function listePhoto(PhotoRepository $photoRepo)
     {
@@ -143,7 +143,7 @@ class SiteController extends AbstractController
         ]);
     }
     /**
-     * @Route("/liste_sceance", name="liste_sceance")
+     * @Route("/admin/liste_sceance", name="liste_sceance")
      */
     public function listeSceance(SceanceRepository $sceanceRepo)
     {
@@ -153,7 +153,7 @@ class SiteController extends AbstractController
         ]);
     }
     /**
-     * @Route("/liste_salle", name="liste_salle")
+     * @Route("/admin/liste_salle", name="liste_salle")
      */
     public function listeSalle(SalleRepository $salleRepo)
     {
@@ -163,7 +163,7 @@ class SiteController extends AbstractController
         ]);
     }
     /**
-     * @Route("/liste_film", name="liste_film")
+     * @Route("/admin/liste_film", name="liste_film")
      */
     public function listeFilm(FilmRepository $filmRepo)
     {
@@ -174,7 +174,7 @@ class SiteController extends AbstractController
     }
 
     /**
-     * @Route("/liste_commentaire", name="liste_commentaire")
+     * @Route("/admin/liste_commentaire", name="liste_commentaire")
      */
     public function listeCommentaire(CommentaireRepository $commentaireRepo)
     {
@@ -186,7 +186,7 @@ class SiteController extends AbstractController
 
 
     /**
-     * @Route("/realisateur/new", name="realisateur_new", methods={"GET","POST"})
+     * @Route("/admin/realisateur/new", name="realisateur_new", methods={"GET","POST"})
      */
     public function newRealisateur(Request $req,ManagerRegistry $cmanager)
     {
@@ -210,7 +210,7 @@ class SiteController extends AbstractController
         ]);
     }
     /**
-     * @Route("/acteur/new", name="acteur_new", methods={"GET","POST"})
+     * @Route("/admin/acteur/new", name="acteur_new", methods={"GET","POST"})
      */
     public function newActeur(Request $req,ManagerRegistry $cmanager)
     {
@@ -236,7 +236,7 @@ class SiteController extends AbstractController
         ]);
     }
     /**
-     * @Route("/film/acteur/{id}", name="film_acteur", methods={"GET","POST"})
+     * @Route("/admin/film/acteur/{id}", name="film_acteur", methods={"GET","POST"})
      */
     public function filmActeur(Request $req,ManagerRegistry $cmanager,Film $film, ActeurRepository $acteurRepo)
     {
@@ -263,7 +263,7 @@ class SiteController extends AbstractController
         ]);
     }
     /**
-     * @Route("/categorie/new", name="categorie_new", methods={"GET","POST"})
+     * @Route("/admin/categorie/new", name="categorie_new", methods={"GET","POST"})
      */
     public function newCategorie(Request $req,ManagerRegistry $cmanager)
     {
@@ -287,7 +287,7 @@ class SiteController extends AbstractController
         ]);
     }
     /**
-     * @Route("/film/categorie/{id}", name="film_categorie", methods={"GET","POST"})
+     * @Route("/admin/film/categorie/{id}", name="film_categorie", methods={"GET","POST"})
      */
     public function filmCategorie(Request $req,ManagerRegistry $cmanager,Film $film, CategorieRepository $catRepo)
     {
@@ -317,7 +317,7 @@ class SiteController extends AbstractController
 
     
      /**
-     * @Route("/ba/new", name="ba_new", methods={"GET","POST"})
+     * @Route("/admin/ba/new", name="ba_new", methods={"GET","POST"})
      */
     public function newBandeAnnonce(Request $req,ManagerRegistry $cmanager, FilmRepository $filmRepo)
     {
@@ -344,7 +344,7 @@ class SiteController extends AbstractController
         ]);
     }
     /**
-     * @Route("/photo/new", name="photo_new", methods={"GET","POST"})
+     * @Route("/admin/photo/new", name="photo_new", methods={"GET","POST"})
      */
     public function newPhoto(Request $req,ManagerRegistry $cmanager, FilmRepository $filmRepo)
     {
@@ -371,7 +371,7 @@ class SiteController extends AbstractController
         ]);
     }
     /**
-     * @Route("/sceance/new", name="sceance_new", methods={"GET","POST"})
+     * @Route("/admin/sceance/new", name="sceance_new", methods={"GET","POST"})
      */
     public function newSceance(Request $req,ManagerRegistry $cmanager, FilmRepository $filmRepo, SalleRepository $salleRepo)
     {
@@ -404,7 +404,7 @@ class SiteController extends AbstractController
         ]);
     }
     /**
-     * @Route("/salle/new", name="salle_new", methods={"GET","POST"})
+     * @Route("/admin/salle/new", name="salle_new", methods={"GET","POST"})
      */
     public function newSalle(Request $req,ManagerRegistry $cmanager)
     {
@@ -428,7 +428,7 @@ class SiteController extends AbstractController
         ]);
     }
     /**
-     * @Route("/film/new", name="film_new", methods={"GET","POST"})
+     * @Route("/admin/film/new", name="film_new", methods={"GET","POST"})
      */
     public function newFilm(Request $req,ManagerRegistry $cmanager, RealisateurRepository $realisateurRepo)
     {
@@ -466,7 +466,7 @@ class SiteController extends AbstractController
         ]);
     }
     /**
-     * @Route("/commentaire/new", name="commentaire_new", methods={"GET","POST"})
+     * @Route("/admin/commentaire/new", name="commentaire_new", methods={"GET","POST"})
      */
     public function newCommentaire(Request $req,ManagerRegistry $cmanager, FilmRepository $filmRepo)
     {

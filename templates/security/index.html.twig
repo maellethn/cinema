@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CineController!{% endblock %}
+
+{% block body %}
+<div class="body-text-center">
+<form class="form-signin">
+    <img class="mb-4" src="https://www.fillmurray.com/640/360" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Inscription</h1>
+    {{ form_start(form)}}
+    {{ form_row(form.avatar, {"label": "Avatar", "attr": {"placeholder": "Avatar"}}) }}
+    {{ form_row(form.username, {"label": "Nom d'utilisateur", "attr": {"placeholder": "Nom d'utilsateur ..."}}) }}
+    {{ form_row(form.email, {"label": "Adresse email", "attr": {"placeholder": "Adresse email ..."}}) }}
+    {{ form_row(form.password, {"label": "Mot de passe", "attr": {"placeholder": "Mot de passe ..."}}) }}
+    {{ form_row(form.confirm_password, {"label": "Le même mot de passe", "attr": {"placeholder": "Le même mot de passe ..."}}) }}
+    <div class="checkbox mb-3">
+    <label>
+      <input type="checkbox" value="remember-me"> Remember me
+    </label>
+  </div>
+  <button class="btn btn-lg btn-primary btn-block" type="submit" value="Inscription">Inscription</button>
+  <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
+    {{ form_end(form) }}
+</form>
+</div>
+{% endblock %}

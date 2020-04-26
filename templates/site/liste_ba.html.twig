@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
-{% block title %}Bande d'anonce{% endblock %}
+{% block title %}Film{% endblock %}
 {% block body %}
+{% include "base_admin.html.twig" %}
+<div id="content-wrapper" class="d-flex flex-column">
+  
+
+<div class="container-fluid">
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Bande d'annonce</h1>
@@ -25,4 +30,6 @@
 		  </tbody>
 		</table>
 	</div>
+</div>
+</div>
 {% endblock %}

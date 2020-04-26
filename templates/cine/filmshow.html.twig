@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CineController!{% endblock %}
+
+{% block body %}
+    <div class="row">
+       
+             <aside class="col-sm-4 film_aside">
+                {% for act in film.acteur %}
+                    <p>{{act.nom}} - {{act.prenom}}</p>
+                {% endfor %}
+
+                {% for band in film.bandeAnnonce %}
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{band.lien}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                {% endfor %}
+                {% for sal in film.salle %}
+                    <p>{{sal.nom}} - {{sal.adresse}} </p>
+                {% endfor %}
+
+                {% for com in film.commentaire %}
+                    <p>{{com.pseudo}} - {{com.note}} </p>
+                {% endfor %}
+                <hr>
+            </aside>
+                
+            <div class="col-sm-12"> 
+            <h1 class="titre"> {{film.titre}} ! ✅</h1>
+            <div class="col-sm-6 titre_show">
+                <img src="{{film.affiche}}" class="image_show"/>
+                <h6>{{film.duree}} - {{film.dateSortie}}</h6>
+                <p>{{film.description}}</p>
+                {% for real in film.realisateur %}
+                    <p>{{ real.nom}} - {{ real.prenom}}</p>
+                {% endfor %}
+            </div>
+        </div>
+      
+    </div>
+{% endblock %}

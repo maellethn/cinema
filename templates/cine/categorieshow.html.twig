@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CineController!{% endblock %}
+
+{% block body %}
+    <div class="row">
+       
+             <aside class="col-sm-4 film_aside">
+                {% for cat in categorie.films %}
+                    <h1>{{cat.titre}}</h1>
+                    <img src="{{cat.affiche}}" class="image_show"/>
+                    <p>{{cat.duree}} - {{ cat.dateSortie}} </p>
+                    <p>{{cat.description }} </p> 
+                    <hr>
+                {% endfor %}
+
+               
+            </aside>
+                
+            <div class="col-sm-12"> 
+            <h1 class="titre"> {{categorie.titre}} ! ✅</h1>
+            <div class="col-sm-6 titre_show">
+                <img src="{{categorie.image}}" class="image_show"/>
+            </div>
+        </div>
+      
+    </div>
+{% endblock %}

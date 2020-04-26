@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block title %}Film{% endblock %}
 {% block body %}
+{% include "base_admin.html.twig" %}
+<div id="content-wrapper" class="d-flex flex-column">
+  
+
+<div class="container-fluid">
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Film</h1>
@@ -50,6 +55,8 @@
     </div>
 		<button type=submit value="ajouter" class="btn btn-dark">Ajouter</button>	
 	</form>
+</div>
+</div>
 
 {% endblock %}
 {% block javascripts %}
