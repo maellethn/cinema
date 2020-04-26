@@ -24,17 +24,71 @@ use App\Entity\Commentaire;
 use App\Repository\CommentaireRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Symfony\Component\Validator\Constraints;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class SiteController extends AbstractController
 {
     /**
-     * @Route("/site", name="site")
+     * @Route("/", name="dashboard")
      */
-    public function index()
+    public function dashboard(FilmRepository $filmRepo)
     {
-        return $this->render('site/index.html.twig', [
-            'controller_name' => 'SiteController',
+    	$films=$filmRepo->findAll();
+    	//on recupere les films diffusés lors de ces 7 derniers jours
+    	$filmSemaine=0;
+    	//date d'il y a 7 jpurs 
+        $dateJour = date_create('now');
+		$date7=date_sub($dateJour, date_interval_create_from_date_string('7 days'));
+     
+    	/* foreach ($films as $film) {
+    		foreach ($film->getSceance() as $sceance) {
+    			$dateSceance = new DateTime($sceance->getDate());
+    			$date=new DateTime();
+    			$dateSem=new DateTime($date7);
+    			if ($dateSceance > $date) {
+    				$filmSemaine++;
+    			}
+    		}
+    	}
+    	*/
+    	$aVenir=0;
+    	$affiche=0;
+    	$filmMoyenne=array();
+    	foreach ($films as $film ) {
+    		$moyenne=0;
+    		$sommeNote=0;
+    		$nbNote=0;
+    		if ($film->getEtat() == 1) {
+    			$affiche ++;
+    		}
+    		if ($film->getDateSortie() > new DateTime()) {
+    			$aVenir++;
+    		}
+    		foreach ($film->getCommentaire() as $commentaire) {
+    			$sommeNote+=$commentaire->getNote();
+    			$nbNote++;
+    		}
+    		if ($nbNote!=0) {
+    			$moyenne=$sommeNote/$nbNote;
+    		}
+    		$filmMoyenne[$film->getTitre()]=$moyenne;
+    	}
+    	$mieuxNote=max($filmMoyenne);
+    	$meilleurFilm=array_search(max($filmMoyenne), $filmMoyenne);
+
+
+
+
+
+        return $this->render('site/dashboard.html.twig', [
+            //'filmSemaine' => $filmSemaine,
+            'films'=>$films,
+            'date7'=>$date7,
+            'affiche'=>$affiche,
+            'aVenir'=>$aVenir,
+            'mieuxNote'=>$mieuxNote,
+            'meilleurFilm'=>$meilleurFilm,
+
         ]);
     }
     /**
