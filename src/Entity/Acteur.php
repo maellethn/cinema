@@ -33,6 +33,11 @@ class Acteur
      */
     private $films;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $photo;
+
     public function __construct()
     {
         $this->films = new ArrayCollection();
@@ -91,6 +96,18 @@ class Acteur
             $this->films->removeElement($film);
             $film->removeActeur($this);
         }
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(string $photo): self
+    {
+        $this->photo = $photo;
 
         return $this;
     }

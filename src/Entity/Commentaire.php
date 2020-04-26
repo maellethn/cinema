@@ -37,6 +37,11 @@ class Commentaire
      */
     private $film;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $commentaire;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +91,18 @@ class Commentaire
     public function setFilm(?Film $film): self
     {
         $this->film = $film;
+
+        return $this;
+    }
+
+    public function getCommentaire(): ?string
+    {
+        return $this->commentaire;
+    }
+
+    public function setCommentaire(string $commentaire): self
+    {
+        $this->commentaire = $commentaire;
 
         return $this;
     }

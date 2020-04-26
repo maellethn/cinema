@@ -20,6 +20,8 @@ use App\Entity\Salle;
 use App\Repository\SalleRepository;
 use App\Entity\Film;
 use App\Repository\FilmRepository;
+use App\Entity\Commentaire;
+use App\Repository\CommentaireRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Component\Validator\Constraints;
@@ -117,6 +119,17 @@ class SiteController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/liste_commentaire", name="liste_commentaire")
+     */
+    public function listeCommentaire(CommentaireRepository $commentaireRepo)
+    {
+    	$commentaires=$commentaireRepo->findAll();
+        return $this->render('site/liste_commentaire.html.twig', [
+            'commentaires' => $commentaires,
+        ]);
+    }
+
 
     /**
      * @Route("/realisateur/new", name="realisateur_new", methods={"GET","POST"})
@@ -151,10 +164,12 @@ class SiteController extends AbstractController
 	  	if ($req->request->get('nom')!=null) {
     		$nom=$req->request->get('nom');
     		$prenom=$req->request->get('prenom');
+    		$photo=$req->request->get('photo');
 
     		$acteur=new Acteur();
     		$acteur->setNom($nom);
     		$acteur->setPrenom($prenom);
+    		$acteur->setPhoto($photo);
 
     		$manager=$cmanager->getManager();
     		$manager->persist($acteur);
@@ -337,6 +352,41 @@ class SiteController extends AbstractController
         return $this->render('site/film_new.html.twig', [
             'ajout' => $ajout,
             'realisateurs'=>$realisateurs,
+        ]);
+    }
+    /**
+     * @Route("/commentaire/new", name="commentaire_new", methods={"GET","POST"})
+     */
+    public function newCommentaire(Request $req,ManagerRegistry $cmanager, FilmRepository $filmRepo)
+    {
+    	$films=$filmRepo->findAll();
+    	$ajout=0;
+	  	if ($req->request->get('pseudo')!=null) {
+    		$pseudo=$req->request->get('pseudo');
+    		$date=$req->request->get('date');
+    		$note=$req->request->get('note');
+    		$com=$req->request->get('commentaire');
+    		$film_id=$req->request->get('film_id');
+    		$film=$filmRepo->find($film_id);
+
+
+    		$commentaire=new Commentaire();
+    		$commentaire->setPseudo($pseudo);
+    		$commentaire->setDate(new \DateTime($date));
+    		$commentaire->setNote($note);
+    		$commentaire->setCommentaire($com);
+    		$commentaire->setFilm($film);
+
+
+    		$manager=$cmanager->getManager();
+    		$manager->persist($commentaire);
+    		$manager->flush();
+            $ajout=1;
+    	}
+
+        return $this->render('site/commentaire_new.html.twig', [
+            'ajout' => $ajout,
+            'films'=>$films,
         ]);
     }
 

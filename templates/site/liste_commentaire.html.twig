@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block title %}Commentaire{% endblock %}
+{% block body %}
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Commentaire</h1>
+  </div>
+
+  <!-- Content Row -->
+  <div class="row">
+	<table class="table table-hover">
+  			<thead class="thead-dark">
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">Pseudo</th>
+		      <th scope="col">Date</th>
+		      <th scope="col">Note</th>
+		      <th scope="col">Commentaire</th>
+		      <th scope="col">Film</th>
+		  </thead>
+		  <tbody>
+		  	{% for commentaire in commentaires %}
+		    <tr>
+		      <th scope="row">{{loop.index}}</th>
+		      <td>{{commentaire.pseudo}}</td>
+		      <td>{{commentaire.date|date("Y/m/d")}}</td>
+		      <td>{{commentaire.note}}</td>
+		      <td>{{commentaire.commentaire}}</td>
+		      <td>{{commentaire.film.titre}}</td>
+		    {% endfor %}
+		  </tbody>
+		</table>
+	</div>
+{% endblock %}

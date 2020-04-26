@@ -14,6 +14,7 @@
 		      <th scope="col">#</th>
 		      <th scope="col">Nom</th>
 		      <th scope="col">Prenom</th>
+		      <th scope="col">Photo</th>
 
 		  </thead>
 		  <tbody>
@@ -22,6 +23,7 @@
 		      <th scope="row">{{loop.index}}</th>
 		      <td>{{acteur.nom}}</td>
 		      <td>{{acteur.prenom}}</td>
+		      <td> <img src="{{acteur.photo}}" style="max-height: 100px"/></td>
 		    {% endfor %}
 		  </tbody>
 		</table>

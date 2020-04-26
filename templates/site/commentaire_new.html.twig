@@ -1,29 +1,41 @@
 {% extends 'base.html.twig' %}
-{% block title %}Acteur{% endblock %}
+{% block title %}Commentaire{% endblock %}
 {% block body %}
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Acteurs</h1>
+    <h1 class="h3 mb-0 text-gray-800">Commentaire</h1>
   </div>
 
 
   	{% if ajout==1 %}
 	<div class="alert alert-success" role="alert">
-  		L'acteur a bien été ajouter
+  		Le commentaire a bien été ajouter
 	</div>
 	{% endif %}
 	<form method="post" class="needs-validation" novalidate>
 		<div class="form-group">
-			<label>Nom de l'acteur</label>
-			<input class="form-control" type="text" name="nom" required>
-		</div>
-		<div class="form-group">
-			<label>Prenom de l'acteur</label>
-			<input class="form-control" type="text" name="prenom" required>
+			<label>Pseudo</label>
+			<input class="form-control" type="text" name="pseudo" required>
 		</div>
     <div class="form-group">
-      <label>Photo de l'acteur</label>
-      <input class="form-control" type="text" name="photo" required>
+      <label>Date</label>
+      <input class="form-control" type="date" name="date" required>
+    </div>
+    <div class="form-group">
+      <label>Note</label>
+      <input class="form-control" type="number" name="note" required>
+    </div>
+    <div class="form-group">
+      <label>Commentaire</label>
+      <input class="form-control" type="text" name="commentaire" required>
+    </div>
+    <div class="form-group">
+      <label>Film</label>
+      <select name="film_id" class="form-control" required>
+        {% for film in films %}
+        <option value="{{film.id}}">{{film.titre}}</option>
+        {% endfor %}
+      </select>
     </div>
 		<button type=submit value="ajouter" class="btn btn-dark">Ajouter</button>	
 	</form>
