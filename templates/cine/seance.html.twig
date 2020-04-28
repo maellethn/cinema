@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Séance!{% endblock %}
+
+{% block body %}
+
+<div class="container-lg">
+<hr>
+<div class="card-deck">
+    {% for sea in seance %} 
+  <div class="card text-center">
+    <div class="card-body">
+      <h5 class="card-title">{{sea.date|date("d/m/Y")}}</h5>
+      <h5 class="card-title">{{sea.film.titre}}</h5>
+      <p class="card-text"><small class="text-muted"> </small></p>
+      <a href="{{path('seance_show', {'id': sea.id})}}"type="button" class="btn btn-outline-info">voir sceance</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+
+{% endblock %}

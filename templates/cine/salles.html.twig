@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CineController!{% endblock %}
+
+{% block body %}
+
+<div class="container-lg">
+<hr>
+<div class="card-deck">
+    {% for sal in salles %} 
+  <div class="card text-center">
+    <div class="card-body">
+      <h5 class="card-title">{{sal.nom}}</h5>
+      <p class="card-text"><small class="text-muted"> </small></p>
+      <a href="{{path('salle_show', {'id': sal.id})}}"type="button" class="btn btn-outline-info">Voir seance</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</div>
+
+{% endblock %}

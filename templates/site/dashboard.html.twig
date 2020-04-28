@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Film{% endblock %}
+{% block title %}Tableau de bord{% endblock %}
 {% block body %}
 {% include "base_admin.html.twig" %}
 <div id="content-wrapper" class="d-flex flex-column">
@@ -18,9 +18,13 @@
 			<div class="card-body">
 				<div class="row no-gutters align-items-center">
 					<div class="col mr-2">
-						<div class="text-xs font-weight-bold text-primary text-uppercase mb-1"> Films diffusés ces 7 derniers jours </div>
+						<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Séance de ces 7 derniers jours </div>
 						{% set filmSemaine=0 %}
+						{% set aVenir=0 %}
 						{% for film in films %}
+						{% if film.dateSortie> date() %}
+							{% set aVenir= aVenir +1%}
+						{% endif %}
 							{% for sceance in film.sceance %}
 								{% if sceance.date > date7 and sceance.date < date()  %}
 								{% set filmSemaine = filmSemaine + 1%}
@@ -42,7 +46,7 @@
 			<div class="card-body">
 				<div class="row no-gutters align-items-center">
 					<div class="col mr-2">
-						<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Films a l'affiche</div>
+						<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Films à l'affiche</div>
 						<div class="h5 mb-0 font-weight-bold text-gray-800">{{affiche}}</div>
 					</div>
 					<div class="col-auto">
@@ -58,7 +62,7 @@
 			<div class="card-body">
 				<div class="row no-gutters align-items-center">
 					<div class="col mr-2">
-						<div class="text-xs font-weight-bold text-success text-uppercase mb-1">Films a venir</div>
+						<div class="text-xs font-weight-bold text-success text-uppercase mb-1">Film à venir</div>
 						<div class="h5 mb-0 font-weight-bold text-gray-800">{{aVenir}}</div>
 					</div>
 					<div class="col-auto">
@@ -73,7 +77,7 @@
 			<div class="card-body">
 				<div class="row no-gutters align-items-center">
 					<div class="col mr-2">
-						<div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Meilleure note</div>
+						<div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Mieux noté</div>
 						<div class="h5 mb-0 font-weight-bold text-gray-800">{{meilleurFilm}}</div>
 						<div class="h5 mb-0 font-weight-bold text-gray-800">{{mieuxNote}}</div>
 					</div>

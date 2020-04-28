@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Film{% endblock %}
+{% block title %}Categorie{% endblock %}
 {% block body %}
 {% include "base_admin.html.twig" %}
 <div id="content-wrapper" class="d-flex flex-column">
@@ -17,7 +17,7 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">Titre</th>
-          <th scope="col">Liens vers l'image</th>
+          <th scope="col">Photo</th>
 
       </thead>
       <tbody>
@@ -25,7 +25,7 @@
         <tr>
           <th scope="row">{{loop.index}}</th>
           <td>{{categorie.titre}}</td>
-          <td>{{categorie.image}}</td>
+          <td><img src="{{categorie.image}}" style="max-height: 70px"></td>
         {% endfor %}
       </tbody>
     </table>
@@ -34,7 +34,7 @@
 
   	{% if ajout==1 %}
 	<div class="alert alert-success" role="alert">
-  		La categorie a bien été ajouter
+  		La categorie a bien été ajoutée
 	</div>
 	{% endif %}
 	<form method="post" class="needs-validation" novalidate>

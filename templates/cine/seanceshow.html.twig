@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CineController!{% endblock %}
+
+{% block body %}
+
+<div class="container-lg">
+<hr>
+<div class="card-deck">
+   
+  <div class="card text-center">
+    <div class="card-body">
+      <h5 class="card-title">{{seance.film.titre}}</h5>
+        <p>{{seance.salle.nom}} {{seance.salle.adresse}}</p>
+        <p class="card-text"><small class="text-muted"></small>{{seance.date|date("d/m/Y")}}</p>
+          
+
+           
+          
+    </div>
+  </div>
+</div>
+</div>
+
+{% endblock %}

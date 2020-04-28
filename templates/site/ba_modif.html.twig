@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Réalisateur{% endblock %}
+{% block title %}Bande annonce{% endblock %}
 {% block body %}
 {% include "base_admin.html.twig" %}
 <div id="content-wrapper" class="d-flex flex-column">
@@ -8,24 +8,22 @@
 <div class="container-fluid">
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Réalisateurs</h1>
+    <h1 class="h3 mb-0 text-gray-800">Bande annonce</h1>
   </div>
 
-
-  	{% if ajout==1 %}
-	<div class="alert alert-success" role="alert">
-  		Le réalisateur a bien été ajouté
-	</div>
-	{% endif %}
 	<form method="post" class="needs-validation" novalidate>
 		<div class="form-group">
-			<label>Nom du réalisateur</label>
-			<input class="form-control" type="text" name="nom" required>
+			<label>Lien</label>
+			<input class="form-control" type="text" name="lien" value="{{ba.lien}}" required>
 		</div>
-		<div class="form-group">
-			<label>Prenom du réalisateur</label>
-			<input class="form-control" type="text" name="prenom" required="">
-		</div>
+     <div class="form-group">
+      <label>Film</label>
+      <select name="film_id" class="form-control" required>
+        {% for film in films %}
+        <option value="{{film.id}}">{{film.titre}}</option>
+        {% endfor %}
+      </select>
+    </div>
 		<button type=submit value="ajouter" class="btn btn-dark">Ajouter</button>	
 	</form>
   </div>

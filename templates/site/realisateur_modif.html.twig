@@ -11,22 +11,16 @@
     <h1 class="h3 mb-0 text-gray-800">Réalisateurs</h1>
   </div>
 
-
-  	{% if ajout==1 %}
-	<div class="alert alert-success" role="alert">
-  		Le réalisateur a bien été ajouté
-	</div>
-	{% endif %}
 	<form method="post" class="needs-validation" novalidate>
 		<div class="form-group">
 			<label>Nom du réalisateur</label>
-			<input class="form-control" type="text" name="nom" required>
+			<input class="form-control" type="text" name="nom" value="{{realisateur.nom}}" required>
 		</div>
 		<div class="form-group">
 			<label>Prenom du réalisateur</label>
-			<input class="form-control" type="text" name="prenom" required="">
+			<input class="form-control" type="text" name="prenom" value="{{realisateur.prenom}}" required="">
 		</div>
-		<button type=submit value="ajouter" class="btn btn-dark">Ajouter</button>	
+		<button type=submit value="ajouter" class="btn btn-dark">Modifier</button>	
 	</form>
   </div>
   </div>

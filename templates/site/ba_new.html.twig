@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Film{% endblock %}
+{% block title %}Bande annonce{% endblock %}
 {% block body %}
 {% include "base_admin.html.twig" %}
 <div id="content-wrapper" class="d-flex flex-column">
@@ -8,13 +8,13 @@
 <div class="container-fluid">
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Bande d'annonce</h1>
+    <h1 class="h3 mb-0 text-gray-800">Bande annonce</h1>
   </div>
 
 
   	{% if ajout==1 %}
 	<div class="alert alert-success" role="alert">
-  		La bande d'annonce a bien été ajouter
+  		La bande annonce a bien été ajoutée
 	</div>
 	{% endif %}
 	<form method="post" class="needs-validation" novalidate>

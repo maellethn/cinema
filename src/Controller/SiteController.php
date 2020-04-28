@@ -40,17 +40,19 @@ class SiteController extends AbstractController
         $dateJour = date_create('now');
 		$date7=date_sub($dateJour, date_interval_create_from_date_string('7 days'));
      
-    	/* foreach ($films as $film) {
+     	/*
+    	foreach ($films as $film) {
     		foreach ($film->getSceance() as $sceance) {
     			$dateSceance = new DateTime($sceance->getDate());
     			$date=new DateTime();
     			$dateSem=new DateTime($date7);
-    			if ($dateSceance > $date) {
+    			if ($dateSceance > $date && $dateSceance < $dateSem) {
     				$filmSemaine++;
     			}
     		}
     	}
     	*/
+    	
     	$aVenir=0;
     	$affiche=0;
     	$filmMoyenne=array();
@@ -61,7 +63,7 @@ class SiteController extends AbstractController
     		if ($film->getEtat() == 1) {
     			$affiche ++;
     		}
-    		if ($film->getDateSortie() > new DateTime()) {
+    		if (new DateTime($film->getDateSortie()) > new DateTime()) {
     			$aVenir++;
     		}
     		foreach ($film->getCommentaire() as $commentaire) {
@@ -85,7 +87,7 @@ class SiteController extends AbstractController
             'films'=>$films,
             'date7'=>$date7,
             'affiche'=>$affiche,
-            'aVenir'=>$aVenir,
+            //'aVenir'=>$aVenir,
             'mieuxNote'=>$mieuxNote,
             'meilleurFilm'=>$meilleurFilm,
 
@@ -498,6 +500,391 @@ class SiteController extends AbstractController
         return $this->render('site/commentaire_new.html.twig', [
             'ajout' => $ajout,
             'films'=>$films,
+        ]);
+    }
+
+    /**
+     * @Route("/admin/acteur/suppr/{id}", name="acteur_suppr")
+     */
+    public function acteurSuppr(Acteur $acteur, Request $req,ManagerRegistry $cmanager)
+    {
+
+    	$manager=$cmanager->getManager();
+		$manager->remove($acteur);
+		$manager->flush();
+		return $this->redirectToRoute('liste_acteur');
+    }
+
+    /**
+     * @Route("/admin/acteur/modif/{id}", name="acteur_modif" ,  methods={"GET","POST"})
+     */
+    public function acteurModif(Acteur $acteur, Request $req,ManagerRegistry $cmanager)
+    {
+    	if ($req->request->get('nom')!=null) {
+    		$nom=$req->request->get('nom');
+    		$prenom=$req->request->get('prenom');
+    		$photo=$req->request->get('photo');
+
+    		$acteur->setNom($nom);
+    		$acteur->setPrenom($prenom);
+    		$acteur->setPhoto($photo);
+
+	    	$manager=$cmanager->getManager();
+			$manager->merge($acteur);
+			$manager->flush();
+			return $this->redirectToRoute('liste_acteur');
+		}
+
+		return $this->render('site/acteur_modif.html.twig', [
+            'acteur' => $acteur,
+        ]);
+    }
+    /**
+     * @Route("/admin/ba/suppr/{id}", name="ba_suppr")
+     */
+    public function baSuppr(BandeAnnonce $ba, Request $req,ManagerRegistry $cmanager)
+    {
+
+    	$manager=$cmanager->getManager();
+		$manager->remove($ba);
+		$manager->flush();
+		return $this->redirectToRoute('liste_ba');
+    }
+
+    /**
+     * @Route("/admin/ba/modif/{id}", name="ba_modif" ,  methods={"GET","POST"})
+     */
+    public function baModif(BandeAnnonce $ba, Request $req,ManagerRegistry $cmanager, FilmRepository $filmRepo)
+    {
+    	$films=$filmRepo->findAll();
+    	if ($req->request->get('lien')!=null) {
+    		$lien=$req->request->get('lien');
+    		$film_id=$req->request->get('film_id');
+    		$film=$filmRepo->find($film_id);
+
+    		$ba->setLien($lien);
+    		$ba->setFilm($film);
+
+	    	$manager=$cmanager->getManager();
+			$manager->merge($ba);
+			$manager->flush();
+			return $this->redirectToRoute('liste_ba');
+		}
+
+		return $this->render('site/ba_modif.html.twig', [
+            'ba' => $ba,
+            'films'=>$films,
+        ]);
+    }
+    /**
+     * @Route("/admin/categorie/suppr/{id}", name="categorie_suppr")
+     */
+    public function categorieSuppr(Categorie $categorie, Request $req,ManagerRegistry $cmanager)
+    {
+
+    	$manager=$cmanager->getManager();
+		$manager->remove($categorie);
+		$manager->flush();
+		return $this->redirectToRoute('liste_categorie');
+    }
+
+    /**
+     * @Route("/admin/categorie/modif/{id}", name="categorie_modif" ,  methods={"GET","POST"})
+     */
+    public function categorieModif(Categorie $categorie, Request $req,ManagerRegistry $cmanager)
+    {
+    	if ($req->request->get('titre')!=null) {
+    		$titre=$req->request->get('titre');
+    		$lien=$req->request->get('lien');
+
+    		$categorie->setTitre($titre);
+    		$categorie->setImage($lien);
+
+    		$manager=$cmanager->getManager();
+    		$manager->merge($categorie);
+    		$manager->flush();
+
+			return $this->redirectToRoute('liste_categorie');
+		}
+
+		return $this->render('site/categorie_modif.html.twig', [
+			'categorie'=>$categorie
+        ]);
+    }
+    /**
+     * @Route("/admin/commentaire/suppr/{id}", name="commentaire_suppr")
+     */
+    public function commentaireSuppr(Commentaire $commentaire, Request $req,ManagerRegistry $cmanager)
+    {
+
+    	$manager=$cmanager->getManager();
+		$manager->remove($commentaire);
+		$manager->flush();
+		return $this->redirectToRoute('liste_commentaire');
+    }
+
+    /**
+     * @Route("/admin/commentaire/modif/{id}", name="commentaire_modif" ,  methods={"GET","POST"})
+     */
+    public function commentaireModif(Commentaire $commentaire, Request $req,ManagerRegistry $cmanager, FilmRepository $filmRepo)
+    {
+    	$films=$filmRepo->findAll();
+	  	if ($req->request->get('pseudo')!=null) {
+    		$pseudo=$req->request->get('pseudo');
+    		$date=$req->request->get('date');
+    		$note=$req->request->get('note');
+    		$com=$req->request->get('commentaire');
+    		$film_id=$req->request->get('film_id');
+    		$film=$filmRepo->find($film_id);
+
+    		$commentaire->setPseudo($pseudo);
+    		$commentaire->setDate(new \DateTime($date));
+    		$commentaire->setNote($note);
+    		$commentaire->setCommentaire($com);
+    		$commentaire->setFilm($film);
+
+    		$manager=$cmanager->getManager();
+    		$manager->merge($commentaire);
+    		$manager->flush();
+
+			return $this->redirectToRoute('liste_commentaire');
+		}
+
+		return $this->render('site/commentaire_modif.html.twig', [
+			'commentaire'=>$commentaire,
+			'films'=>$films
+        ]);
+    }
+
+    /**
+     * @Route("/admin/acteurFilm/suppr/{acteur_id}/{film_id}", name="acteurFilm_suppr")
+     */
+    public function acteurFilmSuppr(Request $req,ManagerRegistry $cmanager,ActeurRepository $acteurRepo, FilmRepository $filmRepo,String $film_id,String $acteur_id)
+    {
+    	$acteur=$acteurRepo->find($acteur_id);
+    	$film=$filmRepo->find($film_id);
+    	$film->removeActeur($acteur);
+    	$manager=$cmanager->getManager();
+		$manager->merge($acteur);
+		$manager->flush();
+
+	return $this->redirectToRoute('liste_film');
+    }
+    /**
+     * @Route("/admin/categorieFilm/suppr/{categorie_id}/{film_id}", name="categorieFilm_suppr")
+     */
+    public function categorieFilmSuppr(Request $req,ManagerRegistry $cmanager,CategorieRepository $categorieRepo, FilmRepository $filmRepo,String $film_id,String $categorie_id)
+    {
+    	$categorie=$categorieRepo->find($categorie_id);
+    	$film=$filmRepo->find($film_id);
+    	$film->removeCategorie($categorie);
+    	$manager=$cmanager->getManager();
+		$manager->merge($categorie);
+		$manager->flush();
+
+	return $this->redirectToRoute('liste_film');
+    }
+
+    /**
+     * @Route("/admin/film/suppr/{id}", name="film_suppr")
+     */
+    public function filmSuppr(Film $film, Request $req,ManagerRegistry $cmanager)
+    {
+
+    	$manager=$cmanager->getManager();
+		$manager->remove($film);
+		$manager->flush();
+		return $this->redirectToRoute('liste_film');
+    }
+
+    /**
+     * @Route("/admin/film/modif/{id}", name="film_modif" ,  methods={"GET","POST"})
+     */
+    public function filmModif(Request $req,ManagerRegistry $cmanager, RealisateurRepository $realisateurRepo, Film $film)
+    {
+    	$realisateurs=$realisateurRepo->findAll();
+	  	if ($req->request->get('titre')!=null) {
+    		$titre=$req->request->get('titre');
+    		$affiche=$req->request->get('affiche');
+    		$description=$req->request->get('description');
+    		$duree=$req->request->get('duree');
+    		$date=$req->request->get('date');
+    		$realisateur_id=$req->request->get('realisateur_id');
+    		$realisateur=$realisateurRepo->find($realisateur_id);
+    		$etat=$req->request->get('etat');
+
+
+    		$film->setTitre($titre);
+    		$film->setAffiche($affiche);
+    		$film->setDescription($description);
+    		$film->setDuree($duree);
+    		$film->setDateSortie(new \DateTime($date));
+    		$film->setRealisateur($realisateur);
+    		$film->setEtat($etat);
+
+    		$manager=$cmanager->getManager();
+    		$manager->merge($film);
+    		$manager->flush();
+
+			return $this->redirectToRoute('liste_film');
+		}
+
+		return $this->render('site/film_modif.html.twig', [
+			'realisateurs'=>$realisateurs,
+			'film'=>$film,
+        ]);
+    }
+    /**
+     * @Route("/admin/photo/suppr/{id}", name="photo_suppr")
+     */
+    public function photoSuppr(Photo $photo, Request $req,ManagerRegistry $cmanager)
+    {
+
+    	$manager=$cmanager->getManager();
+		$manager->remove($photo);
+		$manager->flush();
+		return $this->redirectToRoute('liste_photo');
+    }
+
+    /**
+     * @Route("/admin/photo/modif/{id}", name="photo_modif" ,  methods={"GET","POST"})
+     */
+    public function photoModif(Photo $photo, Request $req,ManagerRegistry $cmanager, FilmRepository $filmRepo)
+    {
+    	$films=$filmRepo->findAll();
+	  	if ($req->request->get('lien')!=null) {
+    		$lien=$req->request->get('lien');
+    		$film_id=$req->request->get('film_id');
+    		$film=$filmRepo->find($film_id);
+
+    		$photo->setLien($lien);
+    		$photo->setFilm($film);
+
+    		$manager=$cmanager->getManager();
+    		$manager->merge($photo);
+    		$manager->flush();
+
+			return $this->redirectToRoute('liste_photo');
+		}
+
+		return $this->render('site/photo_modif.html.twig', [
+			'photo'=>$photo,
+			'films'=>$films
+        ]);
+    }
+    /**
+     * @Route("/admin/realisateur/suppr/{id}", name="realisateur_suppr")
+     */
+    public function realisateurSuppr(Realisateur $realisateur, Request $req,ManagerRegistry $cmanager)
+    {
+
+    	$manager=$cmanager->getManager();
+		$manager->remove($realisateur);
+		$manager->flush();
+		return $this->redirectToRoute('liste_realisateur');
+    }
+
+    /**
+     * @Route("/admin/realisateur/modif/{id}", name="realisateur_modif" ,  methods={"GET","POST"})
+     */
+    public function realisateurModif(Realisateur $realisateur, Request $req,ManagerRegistry $cmanager)
+    {
+	  	if ($req->request->get('nom')!=null) {
+    		$nom=$req->request->get('nom');
+    		$prenom=$req->request->get('prenom');
+
+    		$realisateur->setNom($nom);
+    		$realisateur->setPrenom($prenom);
+
+    		$manager=$cmanager->getManager();
+    		$manager->merge($realisateur);
+    		$manager->flush();
+
+			return $this->redirectToRoute('liste_realisateur');
+		}
+
+		return $this->render('site/realisateur_modif.html.twig', [
+			'realisateur'=>$realisateur,
+        ]);
+    }
+    /**
+     * @Route("/admin/salle/suppr/{id}", name="salle_suppr")
+     */
+    public function salleSuppr(Salle $salle, Request $req,ManagerRegistry $cmanager)
+    {
+
+    	$manager=$cmanager->getManager();
+		$manager->remove($salle);
+		$manager->flush();
+		return $this->redirectToRoute('liste_salle');
+    }
+
+    /**
+     * @Route("/admin/salle/modif/{id}", name="salle_modif" ,  methods={"GET","POST"})
+     */
+    public function salleModif(Salle $salle, Request $req,ManagerRegistry $cmanager)
+    {
+	  	if ($req->request->get('nom')!=null) {
+    		$nom=$req->request->get('nom');
+    		$adresse=$req->request->get('adresse');
+
+    		$salle->setNom($nom);
+    		$salle->setAdresse($adresse);
+
+    		$manager=$cmanager->getManager();
+    		$manager->merge($salle);
+    		$manager->flush();
+
+			return $this->redirectToRoute('liste_salle');
+		}
+
+		return $this->render('site/salle_modif.html.twig', [
+			'salle'=>$salle,
+        ]);
+    }
+    /**
+     * @Route("/admin/sceance/suppr/{id}", name="sceance_suppr")
+     */
+    public function sceanceSuppr(Sceance $sceance, Request $req,ManagerRegistry $cmanager)
+    {
+
+    	$manager=$cmanager->getManager();
+		$manager->remove($sceance);
+		$manager->flush();
+		return $this->redirectToRoute('liste_sceance');
+    }
+
+    /**
+     * @Route("/admin/sceance/modif/{id}", name="sceance_modif" ,  methods={"GET","POST"})
+     */
+    public function sceanceModif(Sceance $sceance, Request $req,ManagerRegistry $cmanager,FilmRepository $filmRepo, SalleRepository $salleRepo)
+    {
+	  	$films=$filmRepo->findAll();
+    	$salles=$salleRepo->findAll();
+
+	  	if ($req->request->get('date')!=null) {
+    		$date=$req->request->get('date');
+    		$film_id=$req->request->get('film_id');
+    		$film=$filmRepo->find($film_id);
+    		$salle_id=$req->request->get('salle_id');
+    		$salle=$salleRepo->find($salle_id);
+
+    		$sceance->setDate(new \DateTime($date));
+    		$sceance->setFilm($film);
+    		$sceance->setSalle($salle);
+    		$salle->addFilm($film);
+
+    		$manager=$cmanager->getManager();
+    		$manager->merge($salle);
+    		$manager->flush();
+
+			return $this->redirectToRoute('liste_sceance');
+		}
+
+		return $this->render('site/sceance_modif.html.twig', [
+			'sceance'=>$sceance,
+			'films'=>$films,
+			'salles'=>$salles
         ]);
     }
 

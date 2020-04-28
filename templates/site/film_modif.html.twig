@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Commentaire{% endblock %}
+{% block title %}Film{% endblock %}
 {% block body %}
 {% include "base_admin.html.twig" %}
 <div id="content-wrapper" class="d-flex flex-column">
@@ -8,45 +8,50 @@
 <div class="container-fluid">
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Commentaire</h1>
+    <h1 class="h3 mb-0 text-gray-800">Film</h1>
   </div>
 
 
-  	{% if ajout==1 %}
-	<div class="alert alert-success" role="alert">
-  		Le commentaire a bien été ajouté
-	</div>
-	{% endif %}
-  
 	<form method="post" class="needs-validation" novalidate>
 		<div class="form-group">
-			<label>Pseudo</label>
-			<input class="form-control" type="text" name="pseudo" required>
+			<label>Titre du film</label>
+			<input class="form-control" type="text" name="titre" value="{{film.titre}}" required>
+		</div>
+		<div class="form-group">
+			<label>Affiche</label>
+			<input class="form-control" type="text" name="affiche" value="{{film.affiche}}" required>
 		</div>
     <div class="form-group">
-      <label>Date</label>
-      <input class="form-control" type="date" name="date" required>
+      <label>Description</label>
+      <textarea class="form-control" type="text" name="description" required>{{film.description}}</textarea>
     </div>
     <div class="form-group">
-      <label>Note</label>
-      <input class="form-control" type="number" name="note" required>
+      <label>Duree</label>
+      <input class="form-control" type="text" name="duree" value="{{film.duree}}" required>
     </div>
     <div class="form-group">
-      <label>Commentaire</label>
-      <input class="form-control" type="text" name="commentaire" required>
+      <label>Date de sortie</label>
+      <input class="form-control" type="date" name="date" value="{{film.dateSortie|date('Y/m/d')}}" required>
     </div>
     <div class="form-group">
-      <label>Film</label>
-      <select name="film_id" class="form-control" required>
-        {% for film in films %}
-        <option value="{{film.id}}">{{film.titre}}</option>
+      <label>Realisateur</label>
+      <select name="realisateur_id" class="form-control" required>
+        {% for realisateur in realisateurs %}
+        <option value="{{realisateur.id}}">{{realisateur.nom}} {{realisateur.prenom}}</option>
         {% endfor %}
       </select>
     </div>
-		<button type=submit value="ajouter" class="btn btn-dark">Ajouter</button>	
+    <div class="form-group">
+      <label>Etat</label>
+      <select name="etat" class="form-control" required>
+        <option value="0">Pas a l'affiche</option>
+        <option value="1">A l'affiche</option>
+      </select>
+    </div>
+		<button type=submit value="ajouter" class="btn btn-dark">Modifier</button>	
 	</form>
-  </div>
-  </div>
+</div>
+</div>
 
 {% endblock %}
 {% block javascripts %}

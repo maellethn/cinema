@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Film{% endblock %}
+{% block title %}Categorie{% endblock %}
 {% block body %}
 {% include "base_admin.html.twig" %}
 <div id="content-wrapper" class="d-flex flex-column">
@@ -14,7 +14,7 @@
 
     {% if ajout==1 %}
   <div class="alert alert-success" role="alert">
-      La categorie a bien été ajouter
+      La categorie a bien été ajoutée
   </div>
   {% endif %}
   <form method="post" class="needs-validation" novalidate>
@@ -23,7 +23,7 @@
       <input class="form-control" type="text" name="titre" required>
     </div>
     <div class="form-group">
-      <label>lien de l'image</label>
+      <label>Lien de l'image</label>
       <input class="form-control" type="text" name="lien" required>
     </div>
     <button type=submit value="ajouter" class="btn btn-dark">Ajouter</button> 

@@ -6,9 +6,12 @@ use App\Entity\User;
 use App\Form\RegistrationType;
 
 use App\Repository\FilmRepository;
+use App\Repository\SalleRepository;
 use App\Repository\ActeurRepository;
+use App\Repository\SceanceRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\RealisateurRepository;
+use App\Entity\Sceance;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -102,6 +105,57 @@ class CineController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/salle/{id}", name="salle_show", methods={"GET"})
+     */
+    public function salleShow(SalleRepository $rsalle, string $id )
+    {
+        $salle = $rsalle->find($id);
+
+        return $this->render('cine/salleshow.html.twig', [
+            'controller_name' => 'CineController',
+            'salle' => $salle
+        ]);
+    }
+
+    /**
+     * @Route("/seance/{id}", name="seance_show", methods={"GET"})
+     */
+    public function seanceShow(Sceance $rseance)
+    {
+  
+        return $this->render('cine/seanceshow.html.twig', [
+            'controller_name' => 'CineController',
+            'seance' => $rseance
+        ]);
+    }
+
+     /**
+     * @Route("/seance", name="seance", methods={"GET"})
+     */
+    public function seance(SceanceRepository $rseance)
+    {
+        $seance = $rseance->findAll();
+
+        return $this->render('cine/seance.html.twig', [
+            'controller_name' => 'CineController',
+            'seance' => $seance
+        ]);
+    }
+
+
+     /**
+     * @Route("/salles", name="salles", methods={"GET"})
+     */
+    public function salles(SalleRepository $rsalles)
+    {
+        $salles = $rsalles->findAll();
+
+        return $this->render('cine/salles.html.twig', [
+            'controller_name' => 'CineController',
+            'salles' => $salles
+        ]);
+    }
 
     /**
      * @Route("/categorie", name="categorie", methods={"GET"})

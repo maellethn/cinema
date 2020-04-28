@@ -3,26 +3,38 @@
 {% block title %}Hello CineController!{% endblock %}
 
 {% block body %}
-    <div class="row">
-       
-             <aside class="col-sm-4 film_aside">
-                {% for cat in acteur.films %}
-                    <h1>{{cat.titre}}</h1>
-                    <img src="{{cat.affiche}}" class="image_show"/>
-                    <p>{{cat.duree}} - {{ cat.dateSortie}} </p>
-                    <p>{{cat.description }} </p> 
-                    <hr>
-                {% endfor %}
-
-               
-            </aside>
-                
-            <div class="col-sm-12"> 
-            <h1 class="titre"> {{acteur.prenom}} - {{acteur.nom}}! ✅</h1>
-            <div class="col-sm-6 titre_show">
-                {# <img src="{{acteur.image}}" class="image_show"/> #}
-            </div>
+<div class="container-lg">
+	<div class="card mb-3">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+          <img src="{{acteur.photo}}" class="card-img" alt="photo de l'acteur {{acteur.nom}} {{acteur.prenom}}">
         </div>
-      
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{acteur.nom}} {{acteur.prenom}}</h5>
+            <p class="card-text"><small class="text-muted">Cet acteur a jouer dans {{acteur.films|length}} films </small></p>
+          </div>
+        </div>
+      </div>
     </div>
+    <br>
+    <div class="row row-cols-1 row-cols-md-3">
+   {% for film in acteur.films %} 
+  <div class="col mb-4">
+    <div class="card">
+      <img src="{{film.affiche}}" class="card-img-top" alt="image du film {{film.titre}}">
+      <div class="card-body">
+        <h5 class="card-title">{{film.titre}}</h5>
+        <p class="card-text">{{film.description|slice(0,150)}}</p>
+        <a href="{{path('cine_show', {'id': film.id})}}"type="button" class="btn btn-outline-info">Voir le film</a>
+      </div>
+    </div>
+   
+  </div>
+   {% endfor %}
+</div>
+</div>
+    
+
+
 {% endblock %}

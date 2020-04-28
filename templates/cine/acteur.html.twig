@@ -3,16 +3,22 @@
 {% block title %}Hello CineController!{% endblock %}
 
 {% block body %}
-    <div class="row">
-       <div class="col-sm-12"> 
-            {% for act in acteur %} 
-                <h3 class="titre"> {{act.prenom}} - {{act.nom}}! ✅</h3>
-                <div class="col-sm-4 jeuxvideo_home">
-                    {# <img src="{{act.image}}" class="image_home"/> #}
-                    <a href="{{path('acteur_show', {'id': act.id})}}"> {{act.nom}}</a>
-                    <hr>
-                </div>
-            {% endfor %}
-       </div>
+<div class="container-lg">
+    <div class="row row-cols-1 row-cols-md-3">
+        {% for act in acteur %}  
+      <div class="col mb-4">
+          <div class="card h-100" >
+            <img src="{{act.photo}}" class="card-img-top" alt="photo de l'acteur {{act.nom}} {{act.prenom}}">
+            <div class="card-body">
+              <h5 class="card-title">{{act.nom}} {{act.prenom}}</h5>
+              <p class="card-text"><small class="text-muted">Cet acteur a jouer dans {{act.films|length}} films </small></p>
+              <a href="{{path('acteur_show', {'id': act.id})}}" type="button" class="btn btn-outline-info">Voir l'acteur</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
     </div>
+    
+</div>
+
 {% endblock %}

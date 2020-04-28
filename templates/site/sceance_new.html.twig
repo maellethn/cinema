@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}Film{% endblock %}
+{% block title %}Séance{% endblock %}
 {% block body %}
 {% include "base_admin.html.twig" %}
 <div id="content-wrapper" class="d-flex flex-column">
@@ -8,18 +8,18 @@
 <div class="container-fluid">
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Sceances</h1>
+    <h1 class="h3 mb-0 text-gray-800">Séances</h1>
   </div>
 
 
   	{% if ajout==1 %}
 	<div class="alert alert-success" role="alert">
-  		La sceance a bien été ajouter
+  		La séance a bien été ajouter
 	</div>
 	{% endif %}
 	<form method="post" class="needs-validation" novalidate>
 		<div class="form-group">
-			<label>Date de la sceance</label>
+			<label>Date de la séance</label>
 			<input class="form-control" type="date" name="date" required>
 		</div>
     <div class="form-group">
