@@ -39,21 +39,7 @@ class SiteController extends AbstractController
     	//date d'il y a 7 jpurs 
         $dateJour = date_create('now');
 		$date7=date_sub($dateJour, date_interval_create_from_date_string('7 days'));
-     
-     	/*
-    	foreach ($films as $film) {
-    		foreach ($film->getSceance() as $sceance) {
-    			$dateSceance = new DateTime($sceance->getDate());
-    			$date=new DateTime();
-    			$dateSem=new DateTime($date7);
-    			if ($dateSceance > $date && $dateSceance < $dateSem) {
-    				$filmSemaine++;
-    			}
-    		}
-    	}
-    	*/
-    	
-    	$aVenir=0;
+
     	$affiche=0;
     	$filmMoyenne=array();
     	foreach ($films as $film ) {
@@ -63,9 +49,7 @@ class SiteController extends AbstractController
     		if ($film->getEtat() == 1) {
     			$affiche ++;
     		}
-    		if (new DateTime($film->getDateSortie()) > new DateTime()) {
-    			$aVenir++;
-    		}
+
     		foreach ($film->getCommentaire() as $commentaire) {
     			$sommeNote+=$commentaire->getNote();
     			$nbNote++;
@@ -83,11 +67,9 @@ class SiteController extends AbstractController
 
 
         return $this->render('site/dashboard.html.twig', [
-            //'filmSemaine' => $filmSemaine,
             'films'=>$films,
             'date7'=>$date7,
             'affiche'=>$affiche,
-            //'aVenir'=>$aVenir,
             'mieuxNote'=>$mieuxNote,
             'meilleurFilm'=>$meilleurFilm,
 
