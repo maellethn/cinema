@@ -128,7 +128,7 @@ class SiteController extends AbstractController
      */
     public function listeBA(BandeAnnonceRepository $baRepo)
     {
-    	$bandeAnnonces=$baRepo->findAll();
+    	$bandeAnnonces=$baRepo->findBy([],['film'=>'ASC']);
         return $this->render('site/liste_ba.html.twig', [
             'bandeAnnonces' => $bandeAnnonces,
         ]);
@@ -139,7 +139,7 @@ class SiteController extends AbstractController
      */
     public function listePhoto(PhotoRepository $photoRepo)
     {
-    	$photos=$photoRepo->findAll();
+    	$photos=$photoRepo->findBy([],['film'=>'ASC']);
         return $this->render('site/liste_photo.html.twig', [
             'photos' => $photos,
         ]);
@@ -149,7 +149,7 @@ class SiteController extends AbstractController
      */
     public function listeSceance(SceanceRepository $sceanceRepo)
     {
-    	$sceances=$sceanceRepo->findAll();
+    	$sceances=$sceanceRepo->findBy([],['film'=>'ASC']);
         return $this->render('site/liste_sceance.html.twig', [
             'sceances' => $sceances,
         ]);
@@ -169,7 +169,7 @@ class SiteController extends AbstractController
      */
     public function listeFilm(FilmRepository $filmRepo)
     {
-    	$films=$filmRepo->findAll();
+    	$films=$filmRepo->findBy([],['date_sortie'=>'DESC']);
         return $this->render('site/liste_film.html.twig', [
             'films' => $films,
         ]);
@@ -180,7 +180,7 @@ class SiteController extends AbstractController
      */
     public function listeCommentaire(CommentaireRepository $commentaireRepo)
     {
-    	$commentaires=$commentaireRepo->findAll();
+    	$commentaires=$commentaireRepo->findBy([],['date'=>'DESC']);
         return $this->render('site/liste_commentaire.html.twig', [
             'commentaires' => $commentaires,
         ]);
